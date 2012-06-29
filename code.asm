@@ -3,14 +3,18 @@
 .DEF Counter = 0x00		; This is the Timer0 Counter Register
 
 SwitchOn:
-OUT PORTA, Zeroes		; Clear Counter
+OUT Counter, 0x00		; Clear Counter
 SBI PORTA, 3			; Set the Switch Bit
+
 OnLoop:
 IN Reader, PORTA		; Read PORTA
 ANDI Reader, 0b00100000		; Mask only the LED input Bit 
 CPI Reader, 0b00100000		; Compare Register with LED On Mask
-BREQ SwOnLEDHi			; If LED current is High, jump to high routine
-RJMP SwOnLEDLo			; If LED current is low, jump to low routine
+BREQ SwitchOff			; If LED current is High, Turn Switch Off
+IN Reader, Counter  ; Read in Counter
+CPI Reader, 123     ; Compare counter with maximum on time
+BRGT SwitchOff      ; If counter has expired, turn switch off
+JMP OnLoop          ; Otherwise, continue in loop
 
 SwitchOff:
 OUT PORTA, Zeroes		; Clear Counter
