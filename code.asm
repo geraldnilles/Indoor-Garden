@@ -21,7 +21,7 @@ IN Reader, PORTA		; Read PORTA
 ANDI Reader, 0b0010000		; Mask only the LED input bit
 CPI Reader, 0b0010000		; Compare to LED Current Mask
 BREQ SwOffLEDHi			; If LED Current is High, jump to High routine
-JMP SwOffLEDLo			; if LED current is low, jump to Low Routine
+JMP SwOffLEDLo			; if LED current is low, jump to Low Routin
 
 SwOnLEDHi:
 IN Reader, Counter 		; Read Counter Register
@@ -46,4 +46,6 @@ IN Reader, Counter		; Read Counter
 CPI Reader, MIN_OFF_TIME	; Compare with Minimum Off Time
 BRGE SwitchOn			; If Greater, Turn switch On
 JMP OffLoop			; Else, Stay in Off mode
+
+Can i edit this?
 
