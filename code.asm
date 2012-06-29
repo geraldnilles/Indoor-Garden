@@ -17,15 +17,19 @@ BRGT SwitchOff      ; If counter has expired, turn switch off
 JMP OnLoop          ; Otherwise, continue in loop
 
 SwitchOff:
-OUT PORTA, Zeroes		; Clear Counter
+OUT Counter, 0x00		; Clear Counter
 CBI PORTA, 3			; Clear the Switch Bit
 
 OffLoop:
+IN Reader, Counter  ; read In Counter
+BRLT OffLoop        ;  If counter has not been reached, stay in this loop
+
+OffLoop2:
 IN Reader, PORTA		; Read PORTA
 ANDI Reader, 0b0010000		; Mask only the LED input bit
 CPI Reader, 0b0010000		; Compare to LED Current Mask
-BREQ SwOffLEDHi			; If LED Current is High, jump to High routine
-JMP SwOffLEDLo			; if LED current is low, jump to Low Routin
+BREQ OffLoop2			; If LED Current is High, stay in this loop
+JMP SwitchOn			; if LED current is low, turn the switch On
 
 SwOnLEDHi:
 IN Reader, Counter 		; Read Counter Register
