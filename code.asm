@@ -31,29 +31,3 @@ CPI Reader, 0b0010000		; Compare to LED Current Mask
 BREQ OffLoop2			; If LED Current is High, stay in this loop
 JMP SwitchOn			; if LED current is low, turn the switch On
 
-SwOnLEDHi:
-IN Reader, Counter 		; Read Counter Register
-CPI Reader, MIN_ON_TIME		; Compare to Minimum Switch On Time
-BRGE SwitchOff			; If Greater, Turn the Switch off
-JMP OnLoop			; Else Continue with the On Loop
-
-SwOnLEDLo:
-IN Reader, Counter		; Read Counter Register
-CPI Reader, MAX_ON_TIME		; Compare to Maximum Switch On Time
-BRGE SwitchOff			; If Greater, Turn the switch off
-JMP OnLoop			; Else Continue with the On Loop
-
-SwOffLEDHi:
-IN Reader, Counter		; Reader Counter
-CPI Reader, MAX_OFF_TIME	; Compare with Maximum Off Time
-BRGE SwitchOn			; If Greater, Turn switch On
-JMP OffLoop			; Else, Stay in Off mode
-
-SwOffLEDLo:
-IN Reader, Counter		; Read Counter
-CPI Reader, MIN_OFF_TIME	; Compare with Minimum Off Time
-BRGE SwitchOn			; If Greater, Turn switch On
-JMP OffLoop			; Else, Stay in Off mode
-
-Can i edit this?
-
