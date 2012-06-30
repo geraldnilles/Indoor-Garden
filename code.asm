@@ -14,7 +14,7 @@ BREQ SwitchOff			; If LED current is High, Turn Switch Off
 IN Reader, Counter  ; Read in Counter
 CPI Reader, 123     ; Compare counter with maximum on time
 BRGT SwitchOff      ; If counter has expired, turn switch off
-JMP OnLoop          ; Otherwise, continue in loop
+RJMP OnLoop          ; Otherwise, continue in loop
 
 SwitchOff:
 OUT Counter, 0x00		; Clear Counter
@@ -29,5 +29,5 @@ IN Reader, PORTA		; Read PORTA
 ANDI Reader, 0b0010000		; Mask only the LED input bit
 CPI Reader, 0b0010000		; Compare to LED Current Mask
 BREQ OffLoop2			; If LED Current is High, stay in this loop
-JMP SwitchOn			; if LED current is low, turn the switch On
+RJMP SwitchOn			; if LED current is low, turn the switch On
 
