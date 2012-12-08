@@ -42,3 +42,5 @@ This will allow the inductor to enter DCM mode without crazy voltage spikes.
 
 We can just use an ideal diode for these (perhaps with a 1.4V VF to mimic the 2 didoe in the bridge)
 
+### Diode Switch
+Currently, the high side switch is an ideal diode.  Lets make it a real diode.
